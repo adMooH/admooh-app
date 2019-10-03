@@ -1,23 +1,28 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
+    "module":"commonjs",
     "target": "es5",
-    "module":"es2015",
-    "lib": ["es2015", "es2016", "es2017", "dom"],
+    "lib": ["es6", "dom"],
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noEmit": true,
+    "baseUrl": "./",
     "sourceMap": true,
     "declaration": true,
+    "noErrorTruncation": true,
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declarationDir": "dist/types",
-    "outDir": "dist/lib",
     "jsx": "react",
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "paths": {
+      "@admooh-app/core": ["./packages/admooh-app/src"],
+      "@admooh-app/core/*": ["./packages/admooh-app/src/*"],
+      "@admooh-app/tools": ["./packages/admooh-app-tools/src"],
+      "@admooh-app/tools/*": ["./packages/admooh-app-tools/src/*"],
+      "test/*": ["./test/*"]
+    }
   },
-  "include": [
-    "src"
-  ]
+  "exclude": ["**/build/"]
 }

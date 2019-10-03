@@ -1,128 +1,95 @@
 {
-  "name": "admooh-app",
-  "version": "0.0.1",
-  "description": "",
-  "keywords": [],
-  "main": "dist/admooh-app.umd.js",
-  "module": "dist/admooh-app.es5.js",
-  "typings": "dist/types/admooh-app.d.ts",
-  "files": [
-    "dist"
-  ],
-  "author": "apereira <ademirspr@live.com>",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/adMooH/admooh-app.git"
-  },
-  "bugs": {
-    "url": "https://github.com/adMooH/admooh-app/issues"
-  },
-  "homepage": "https://github.com/adMooH/admooh-app#readme",
-  "license": "MIT",
-  "engines": {
-    "node": ">=6.0.0"
-  },
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-    "prebuild": "rimraf dist",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
-    "start": "rollup -c rollup.config.ts -w",
-    "test": "jest --coverage",
-    "test:watch": "jest --coverage --watch",
-    "test:prod": "npm run lint && npm run test -- --no-cache",
-    "deploy-docs": "ts-node tools/gh-pages-publish",
-    "report-coverage": "cat ./coverage/lcov.info | coveralls",
-    "commit": "git-cz",
-    "semantic-release": "semantic-release",
-    "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-    "precommit": "lint-staged",
-    "travis-deploy-once": "travis-deploy-once"
-  },
-  "lint-staged": {
-    "{src,test}/**/*.ts": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    }
-  },
-  "jest": {
-    "transform": {
-      ".(ts|tsx)": "ts-jest"
-    },
-    "testEnvironment": "node",
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 90,
-        "functions": 95,
-        "lines": 95,
-        "statements": 95
-      }
-    },
-    "collectCoverageFrom": [
-      "src/*.{js,ts}"
-    ]
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "proptypes": "ts-node --skip-project ./scripts/generateProptypes.ts",
+    "deduplicate": "node scripts/deduplicate.js",
+    "lint": "eslint . --cache --report-unused-disable-directives",
+    "lint:ci": "eslint . --report-unused-disable-directives",
+    "lint:fix": "eslint . --cache --fix",
+    "prettier": "yarn node ./scripts/prettier.js",
+    "prettier:all": "yarn node ./scripts/prettier.js write",
+    "test": "yarn lint && yarn typescript && yarn test:coverage"
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.1.2",
-    "@commitlint/config-conventional": "^7.1.2",
-    "@types/jest": "^23.3.2",
-    "@types/node": "^10.11.0",
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.0",
+    "@babel/node": "^7.6.1",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-object-assign": "^7.2.0",
+    "@babel/plugin-transform-runtime": "~7.5.5",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.6.2",
+    "@types/fs-extra": "^8.0.0",
+    "@types/prettier": "^1.18.0",
+    "@types/lodash": "^4.14.138",
     "@types/react": "^16.9.3",
-    "colors": "^1.3.2",
-    "commitizen": "^3.0.0",
-    "coveralls": "^3.0.2",
-    "cross-env": "^5.2.0",
-    "cz-conventional-changelog": "^2.1.0",
-    "husky": "^1.0.1",
-    "jest": "^23.6.0",
-    "jest-config": "^23.6.0",
-    "lint-staged": "^8.0.0",
-    "lodash.camelcase": "^4.3.0",
-    "prettier": "^1.14.3",
-    "prompt": "^1.0.0",
-    "replace-in-file": "^3.4.2",
-    "rimraf": "^2.6.2",
-    "rollup": "^0.67.0",
-    "rollup-plugin-commonjs": "^9.1.8",
-    "rollup-plugin-json": "^3.1.0",
-    "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-plugin-sourcemaps": "^0.4.2",
-    "rollup-plugin-typescript2": "^0.18.0",
-    "semantic-release": "^15.9.16",
-    "shelljs": "^0.8.3",
-    "travis-deploy-once": "^5.0.9",
-    "ts-jest": "^23.10.2",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.15.0",
-    "tslint-config-standard": "^8.0.1",
-    "typedoc": "^0.12.0",
-    "typescript": "^3.0.3"
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.0",
+    "babel-plugin-istanbul": "^5.2.0",
+    "babel-plugin-module-resolver": "^3.0.0",
+    "babel-plugin-optimize-clsx": "^2.3.0",
+    "babel-plugin-react-remove-properties": "^0.3.0",
+    "babel-plugin-tester": "^7.0.1",
+    "babel-plugin-transform-dev-warning": "^0.1.0",
+    "babel-plugin-transform-react-constant-elements": "^6.23.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.21",
+    "cross-env": "^6.0.0",
+    "dtslint": "^0.9.3",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^6.2.0",
+    "eslint-import-resolver-webpack": "^0.11.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-mocha": "^6.1.1",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^2.1.1",
+    "fs-extra": "^8.1.0",
+    "glob": "^7.1.2",
+    "glob-gitignore": "^1.0.11",
+    "lerna": "^3.16.4",
+    "prettier": "1.17.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.21.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-size-snapshot": "^0.10.0",
+    "rollup-plugin-terser": "^5.1.1",
+    "ts-node": "^8.3.0",
+    "tslint": "5.14.0",
+    "typescript": "3.2.4",
+    "typescript-to-proptypes": "^1.3.0",
+    "webpack": "^4.41.0",
+    "webpack-bundle-analyzer": "^3.5.1",
+    "webpack-cli": "^3.3.9",
+    "yarn-deduplicate": "^1.1.1"
   },
-  "dependencies": {
-    "react": "^16.9.0"
-  }
+  "resolutions": {
+    "**/@babel/core": "^7.6.0",
+    "**/@babel/plugin-proposal-class-properties": "^7.5.5",
+    "**/@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "**/@babel/plugin-transform-destructuring": "npm:@minh.nguyen/plugin-transform-destructuring@^7.5.2",
+    "**/@babel/plugin-transform-runtime": "~7.5.5",
+    "**/@babel/preset-env": "^7.6.0",
+    "**/@babel/preset-react": "^7.0.0",
+    "**/@babel/runtime-corejs2": "^7.4.4",
+    "**/@babel/runtime": "^7.4.4",
+    "**/hoist-non-react-statics": "^3.2.1",
+    "**/next/terser": "^4.1.2"
+  },
+  "workspaces": [
+    "packages/*",
+    "docs"
+  ],
+  "dependencies": {}
 }

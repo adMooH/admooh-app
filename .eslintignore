@@ -1,0 +1,12 @@
+/.git
+/docs/.next
+/coverage
+/docs/export
+/examples/create-react-app*/src/serviceWorker.js
+/examples/gatsby/public/
+/examples/preact/config
+/examples/preact/scripts
+/packages/babel-plugin-unwrap-createStyles/test/__fixtures__/
+/tmp
+build
+node_modules

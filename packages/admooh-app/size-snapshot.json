@@ -1,0 +1,7 @@
+{
+  "build\\umd\\admooh-app.production.min.js": {
+    "bundled": 4603,
+    "minified": 2222,
+    "gzipped": 927
+  }
+}

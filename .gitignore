@@ -10,3 +10,13 @@ compiled
 .awcache
 .rpt2_cache
 docs
+/.eslintcache
+/docs/.next
+/.nyc_output
+/coverage
+/docs/export
+/examples/**/.cache
+/tmp
+build
+package-lock.json
+size-snapshot.json
