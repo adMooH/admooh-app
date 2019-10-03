@@ -1,0 +1,46 @@
+{
+  "name": "@admooh-app/dev-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adMooH/admooh-app.git",
+    "directory": "packages/admooh-app-dev-tools"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adMooH/admooh-app/issues"
+  },
+  "homepage": "https://github.com/adMooH/admooh-app#readme",
+  "scripts": {
+    "build": "yarn build:cjs && yarn build:esm && yarn build:es && yarn build:copy-files",
+    "build:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel --config-file ../../babel.config.js ./src --out-dir ./build --ignore \"**/*.test.js\"",
+    "build:esm": "cross-env NODE_ENV=production BABEL_ENV=esm babel --config-file ../../babel.config.js ./src --out-dir ./build/esm --ignore \"**/*.test.js\"",
+    "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel --config-file ../../babel.config.js ./src --out-dir ./build/es --ignore \"**/*.test.js\"",
+    "build:copy-files": "node ../../scripts/copy-files.js",
+    "prebuild": "rimraf build",
+    "release": "yarn build && npm publish build --tag latest",
+    "test": "cd ../../ && cross-env NODE_ENV=test mocha 'packages/admooh-app-dev-tools/**/*.test.js' --exclude '**/node_modules/**'"
+  },
+  "dependencies": {
+    "@admooh-app/core": "^1.0.0",
+    "@admooh-app/tools": "^1.0.0",
+    "@material-ui/core": "^4.5.0",
+    "@material-ui/icons": "^4.4.3",
+    "clsx": "^1.0.4",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "react-json-editor-ajrm": "^2.5.9",
+    "react-json-view": "^1.19.1",
+    "react-swipeable-views": "^0.13.3"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "devDependencies": {}
+}
