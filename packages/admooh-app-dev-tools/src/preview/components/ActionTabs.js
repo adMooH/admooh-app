@@ -31,8 +31,8 @@ export default function ActionTabs(props){
             aria-label="action tabs example"
         >
             <Tab label="Data"/>
-            <Tab label="Custom"/>
             <Tab label="Actions" />
+            <Tab label="RSS"/>
         </Tabs>
         <SwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}

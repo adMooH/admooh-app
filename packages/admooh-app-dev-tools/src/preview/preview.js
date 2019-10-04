@@ -2,6 +2,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -10,12 +11,10 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import React from 'react';
 import ActionTabs from './components/ActionTabs';
-import { AppPreview } from '@admooh-app/core';
-import { AppRssSource } from '@admooh-app/tools';
-import {DataOptions, CustomOptions, ActionOptions} from './components/options';
-import Fab from '@material-ui/core/Fab';
 import Alert from './components/Alert';
-import DevContext  from './devContext';
+import AppPreview from './components/AppPreview';
+import { ActionOptions, DataOptions, RssOptions } from './components/options';
+import DevContext from './devContext';
 
 const drawerWidth = 440;
 const useStyles = makeStyles(theme => ({
@@ -61,22 +60,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function DevAppView(props) {
-  const rssSource = new AppRssSource();
   const classes = useStyles();
   const theme = useTheme();
 
-  const [open, setOpen] = React.useState(false);
-  const [dataUrL, setDataUrl] = React.useState('');
+  const [open, setOpen] = React.useState(true);
+
   const [status, setStatus] = React.useState('');
   const [openAlert, setOpenAlert] = React.useState(false);
-  const [data, setData] = React.useState([{
-    title: 'adMooH App',
-    description: 'A simple sample',
-    linkfoto: 'https://i.imgur.com/nX9AVtA.jpg'
-  }]);
-  const [customData, setCustomData] = React.useState({});
-  const [app, setApp] = React.useState({});
 
+  const [data, setData] = React.useState({});
+  const [app, setApp] = React.useState({});
+  const [previewComponent, setPreviewComponent] = React.useState(<></>);
+
+
+  const admoohContext = new DevContext();
 
   function setAppRef(ref){
     setApp(ref);
@@ -96,17 +93,29 @@ export default function DevAppView(props) {
   }
 
   function runApp(){
-    setStatus('Loading items...');
-    setOpenAlert(true);
-    rssSource.setUrl(dataUrL);
-    rssSource.getItems(true).then(items => {
-      setData(items);
-      setOpenAlert(false);
-    }).catch(err => {
-        console.error(err);
-        setOpenAlert(false);
-    });
+    var d = new Date();
+    setPreviewComponent(
+      <AppPreview
+        key={d.getSeconds()}
+        getApp={props.getApp}
+        data={data}
+        setApp={setAppRef}
+        context={admoohContext}
+      />);
+  }
 
+  function prepare(){
+    props.prepareApp
+    props.prepareApp({
+      context: admoohContext,
+      data,
+    }).then(isDone => {
+      console.log(isDone);
+    });
+  }
+
+  function clearDb(){
+    admoohContext.clearData('_fake_db');
   }
 
   return (
@@ -124,14 +133,9 @@ export default function DevAppView(props) {
           [classes.contentShift]: open,
         })}
       >
-        <AppPreview
-          prepareApp={props.prepareApp}
-          getApp={props.getApp}
-          data={data}
-          custom={customData}
-          setApp={setAppRef}
-          context={new DevContext()}
-        />
+        {
+          previewComponent
+        }
       </main>
       <Drawer
         className={classes.drawer}
@@ -149,9 +153,13 @@ export default function DevAppView(props) {
         </div>
         <Divider />
         <ActionTabs tabs={[
-          <DataOptions onChange={setDataUrl}/>,
-          <CustomOptions onChange={setCustomData}/>,
-          <ActionOptions willShow={willShow}/>
+          <DataOptions onChange={setData}/>,
+          <ActionOptions
+            willShow={willShow}
+            prepareApp={prepare}
+            clearDb={clearDb}
+          />,
+          <RssOptions />
         ]}/>
         <Button
             className={classes.runButton}
