@@ -17,7 +17,7 @@ export function DataOptions(props){
     }
     return (
         <div className={classes.form}>
-            <JSONInput onChange={handlerCustomChanges} height="30rem"/>
+            <JSONInput  placeholder={props.placeholder} onChange={handlerCustomChanges} height="30rem"/>
         </div>
     );
 }

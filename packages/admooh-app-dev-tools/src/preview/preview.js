@@ -68,7 +68,7 @@ export default function DevAppView(props) {
   const [status, setStatus] = React.useState('');
   const [openAlert, setOpenAlert] = React.useState(false);
 
-  const [data, setData] = React.useState({});
+  const [data, setData] = React.useState(props.defaultData === undefined? {}: props.defaultData);
   const [app, setApp] = React.useState({});
   const [previewComponent, setPreviewComponent] = React.useState(<></>);
 
@@ -105,12 +105,15 @@ export default function DevAppView(props) {
   }
 
   function prepare(){
+    setStatus('Prepare APP');
+    setOpenAlert(true);
+
     props.prepareApp
     props.prepareApp({
       context: admoohContext,
       data,
     }).then(isDone => {
-      console.log(isDone);
+      setOpenAlert(false);
     });
   }
 
@@ -153,7 +156,7 @@ export default function DevAppView(props) {
         </div>
         <Divider />
         <ActionTabs tabs={[
-          <DataOptions onChange={setData}/>,
+          <DataOptions onChange={setData} placeholder={data}/>,
           <ActionOptions
             willShow={willShow}
             prepareApp={prepare}
