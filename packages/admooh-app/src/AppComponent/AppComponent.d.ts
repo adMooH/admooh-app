@@ -1,4 +1,4 @@
-import {IAdmoohContext} from '../interfaces/IAdmoohContext';
+import IAdmoohContext from '../interfaces/IAdmoohContext';
 
 export interface AppComponentProps {
    context: IAdmoohContext;

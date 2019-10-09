@@ -1,6 +1,6 @@
-import {IAdmoohContext} from './IAdmoohContext';
+import IAdmoohContext from './IAdmoohContext';
 
-export interface IGetAppProps {
+export default interface IGetAppProps {
   context: IAdmoohContext;
   data: any;
 }

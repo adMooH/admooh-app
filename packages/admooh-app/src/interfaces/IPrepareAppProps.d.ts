@@ -1,4 +1,4 @@
-import {IAdmoohContext} from './IAdmoohContext';
+import IAdmoohContext from './IAdmoohContext';
 
 export default interface IPrepareAppProps {
   context: IAdmoohContext;

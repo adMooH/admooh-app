@@ -1,7 +1,7 @@
 import IPrepareAppProps from './IPrepareAppProps';
 import IGetAppProps from './IGetAppProps';
 
-export interface IAdmoohApp {
+export default interface IAdmoohApp {
   get: (props: IGetAppProps) => JSX.Element;
   prepare: (props: IPrepareAppProps) => Promise<boolean>;
 }
