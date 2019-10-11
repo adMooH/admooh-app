@@ -26,10 +26,10 @@ class AppRssSource {
     }
 
     getFeedCharsetEncoding(contentTypeHeader) {
-      const regex = /(?<=charset=).*/gm;
+      const regex = /charset=([^()<>@,;:\"/[\]?.=\s]*)/i;
       let match = regex.exec(contentTypeHeader);
       if (match) {
-        return match[0];
+        return match[1];
       }
       return "iso-8859-1";
     }
