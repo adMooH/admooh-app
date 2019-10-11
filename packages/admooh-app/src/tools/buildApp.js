@@ -1,8 +1,8 @@
 import React from 'react';
 
-export const buildApp = (admoohApp, prepare) => {
+export const buildApp = (app, prepare) => {
   window.admoohApp = {
-    get: (props) => <App {...props} />,
+    get: (props) => React.createElement(app, props),
     prepare: (props) => prepare(props)
   };
 };
