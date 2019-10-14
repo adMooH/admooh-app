@@ -2,11 +2,13 @@ import React from 'react';
 import evalApp from '../tools/evalApp';
 
 class AdmoohApp extends React.Component {
-
   setCurrentApp(app) {
     if(app)
     {
       this._app = app;
+      if(this.props.onSetApp) {
+        this.props.onSetApp(this._app);
+      }
     }
   }
 
@@ -30,12 +32,6 @@ class AdmoohApp extends React.Component {
     }
 
     return <></>
-  }
-
-  componentDidUpdate() {
-    if (this._app) {
-      this._app.willShow();
-    }
   }
 
   componentWillUnmount() {
