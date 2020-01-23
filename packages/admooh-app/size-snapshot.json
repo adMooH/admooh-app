@@ -3,5 +3,10 @@
     "bundled": 6346,
     "minified": 3027,
     "gzipped": 1189
+  },
+  "build/umd/admooh-app.production.min.js": {
+    "bundled": 5978,
+    "minified": 2809,
+    "gzipped": 1166
   }
 }
