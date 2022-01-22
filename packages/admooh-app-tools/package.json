@@ -24,7 +24,7 @@
     "test": "cd ../../ && cross-env NODE_ENV=test mocha 'packages/admooh-app-tools/**/*.test.js' --exclude '**/node_modules/**'"
   },
   "dependencies": {
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "x2js": "^3.3.1"
   },
   "sideEffects": false,
